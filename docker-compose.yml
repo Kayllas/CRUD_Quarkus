@@ -1,0 +1,37 @@
+version: "3.9"
+services:
+  db:
+    image: postgres:15.3
+    environment:
+      POSTGRES_DB: catalogo_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"   # <-- alterado
+    healthcheck:
+      test: ["CMD-SHELL","pg_isready -U postgres"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.jvm
+    environment:
+      DB_HOST: db
+      DB_NAME: catalogo_db
+      DB_USER: postgres
+      DB_PASS: postgres
+      JWT_ISSUER: http://localhost/issuer
+      JWT_PUBLIC_KEY_LOCATION: jwt/publicKey.pem
+    depends_on:
+      db:
+        condition: service_healthy
+    ports: ["8080:8080"]
+
+volumes:
+  pgdata: {}

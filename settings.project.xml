@@ -1,0 +1,26 @@
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0">
+  <mirrors>
+    <!-- Força usar direto o Central neste projeto -->
+    <mirror>
+      <id>central-direct</id>
+      <name>Maven Central Direct</name>
+      <url>https://repo.maven.apache.org/maven2</url>
+      <mirrorOf>central</mirrorOf>
+    </mirror>
+  </mirrors>
+
+  <!-- Descomente se estiver atrás de proxy
+  <proxies>
+    <proxy>
+      <id>corp</id>
+      <active>true</active>
+      <protocol>http</protocol>
+      <host>SEU_PROXY</host>
+      <port>SEU_PORT</port>
+      <nonProxyHosts>localhost|127.0.0.1</nonProxyHosts>
+      <username>USER</username>
+      <password>SENHA</password>
+    </proxy>
+  </proxies>
+  -->
+</settings>
